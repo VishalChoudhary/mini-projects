@@ -8,6 +8,6 @@ export const login = (user) =>async(disptach) =>{
         console.log("Login Response",res.data);
         disptach(loginSuccess(res.data));
     } catch (error) {
-        disptach(loginFailure);
+        disptach(loginFailure());
     }
 };

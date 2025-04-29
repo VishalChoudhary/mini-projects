@@ -1,4 +1,4 @@
-import {configureStore} from "reduxks/toolkit";
+import {configureStore} from "@reduxjs/toolkit";
 import userRedux from "./userRedux";
 
 export default configureStore({

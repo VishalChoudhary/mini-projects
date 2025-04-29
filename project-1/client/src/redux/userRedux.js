@@ -1,4 +1,4 @@
-import {createSlice} from "reduxjs/toolkit";
+import {createSlice} from "@reduxjs/toolkit";
 
 const userSlice = createSlice({
     name: "user",
@@ -25,4 +25,4 @@ const userSlice = createSlice({
 
 export const {loginStart,loginSuccess,loginFailure} = userSlice.actions;
 
-export default userSlice.reducers;
+export default userSlice.reducer;
