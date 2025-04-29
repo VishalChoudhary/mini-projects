@@ -1,5 +1,7 @@
-import React from 'react';
+import React, { useState } from 'react';
 import styled from 'styled-components';
+import {useDispatch, useSelector} from 'react-redux';
+import { login } from '../redux/apiCall';
 
 const Container = styled.div`
     width: 100vw;
@@ -99,7 +101,22 @@ const Link = styled.a`
     font-weight: bolder;
 `;
 
+const Error = styled.span`
+    margin-top : 10px ;
+    color: red;
+`;
+
 const Login = () => {
+  const [username,setUsername] = useState("");
+  const [password,setPassword] = useState("");
+  const dispatch = useDispatch();
+  const {isFetching, error} = useSelector(state=>state.user);
+
+  const handleClick = (e) =>{
+    e.preventDefault();
+    dispatch(login({username,password}));
+  };
+
   return (
     <Container>
         <Wrapper>
@@ -107,18 +124,19 @@ const Login = () => {
             <Form>
                 <Box>
                     <PlaceholderText>UserName</PlaceholderText>
-                    <Input/>
+                    <Input type='text' onChange={(e)=> setUsername(e.target.value)}/>
                 </Box>
                 <Box>
                     <PlaceholderText>Password</PlaceholderText>
-                    <Input/>
+                    <Input type='password' onChange={(e)=> setPassword(e.target.value)}/>
                 </Box>
-                <Button>Login</Button>
+                <Button onClick={handleClick} disabled={isFetching}>Login</Button>
+                {error && <Error>Something went wrong!</Error>}
+                <FooterBox>
+                    <PlaceholderText style={{fontSize: "12px", color:"gray", fontWeight:"500",}}>Don’t you have an account? </PlaceholderText>
+                    <Link>Register</Link>
+                </FooterBox>
             </Form>
-            <FooterBox>
-                <PlaceholderText style={{fontSize: "12px", color:"gray", fontWeight:"500",}}>Don’t you have an account? </PlaceholderText>
-                <Link>Sing Up</Link>
-            </FooterBox>
         </Wrapper>
     </Container>
   )
