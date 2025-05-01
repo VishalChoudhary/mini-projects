@@ -1,7 +1,8 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import styled from 'styled-components';
 import {useDispatch, useSelector} from 'react-redux';
 import { login } from '../redux/apiCall';
+import { createUserRequest } from '../requestMethod';
 
 const Container = styled.div`
     width: 100vw;
@@ -110,9 +111,29 @@ const Login = () => {
   const [username,setUsername] = useState("");
   const [password,setPassword] = useState("");
   const dispatch = useDispatch();
+  const currentUser = useSelector(state=>state.user.currentUser);
   const {isFetching, error} = useSelector(state=>state.user);
 
-  const handleClick = (e) =>{
+  useEffect(()=>{
+    const fetchUser = async () =>{
+        if(currentUser){
+            const token = currentUser.accessToken;
+            const userId = currentUser._id;
+
+            const userRequest = createUserRequest(token);
+
+            try {
+                const res = await userRequest.get(`/users/find/${userId}`);
+                console.log("User data: ",res.data);
+            } catch (error) {
+                console.log("API Error: ",error);
+            }
+        }
+    };
+    fetchUser();
+  },[currentUser]);
+
+  const handleClick = async(e) =>{
     e.preventDefault();
     dispatch(login({username,password}));
   };
