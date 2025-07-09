@@ -7,3 +7,4 @@
 <h3>project-5: Image Gallery with Modal + Navigation</h3>
 <h3>project-6: Accordion</h3>
 <h3>project-7: Pagination</h3>
+<h3>project-8: Tab Component</h3>
