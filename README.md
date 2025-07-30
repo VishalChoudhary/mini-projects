@@ -9,3 +9,4 @@
 <h3>project-7: Pagination</h3>
 <h3>project-8: Tab Component</h3>
 <h3>project-9: Form Wizard</h3>
+<h3>project-10: Progress Bar</h3>
